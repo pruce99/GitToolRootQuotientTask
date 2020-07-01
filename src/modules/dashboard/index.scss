@@ -1,0 +1,28 @@
+.decider {
+    display: flex;
+  .main-dashboard {
+    width: 25%;
+    border: 1px solid black;
+    color: white;
+    height: fit-content;
+    background-color: rgb(40, 45, 112);
+    .dashboard-heading {
+      text-align: left;
+      padding: 8px 20px;
+      border: 1px solid rgb(155, 150, 150);
+    }
+    .options {
+      text-align: left;
+      color: white;
+      .option-list {
+        padding: 19px 20px;
+        border: 1px solid rgb(155, 150, 150);
+      }
+      .option-list:hover {
+        background-color: white;
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+}
