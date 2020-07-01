@@ -1,0 +1,61 @@
+.PublicRepo {
+  margin-left: 310px;
+  .searchbar {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 65px;
+    margin: 10px 10px;
+    width: 400px;
+    justify-content: space-between;
+    .input-field {
+      width: 88%;
+      .inputBox {
+        margin-left: 3px;
+        height: 20px;
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 20px;
+      }
+    }
+    .searchicon {
+      .icon {
+        width: 40px;
+      }
+    }
+    .searchicon:hover {
+      cursor: pointer;
+      background-color: rgb(63, 181, 202);
+      border-radius: 0 19px 19px 0;
+      padding-left: 10px;
+    }
+  }
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+      border: 1px solid rgb(143, 140, 140);
+      border-radius: 20px;
+      text-align: left;
+      margin: 20px 0 0 20px;
+      display: flex;
+      width: 46%;
+      .first-half {
+        align-self: center;
+        margin: 0 10px;
+        .avatar {
+          .avatar-img {
+            width: 110px;
+            border: 1px black solid;
+            border-radius: 75px;
+          }
+        }
+      }
+      .second-half {
+        margin-right: 10px;
+      }
+    }
+  }
+}

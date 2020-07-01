@@ -1,21 +1,22 @@
 .decider {
-    display: flex;
+  display: flex;
   .main-dashboard {
+    position: fixed;
     width: 25%;
     border: 1px solid black;
     color: white;
     height: fit-content;
-    background-color: rgb(40, 45, 112);
+    background-color: rgb(15, 29, 224);
     .dashboard-heading {
       text-align: left;
-      padding: 8px 20px;
+      padding: 15px 20px;
       border: 1px solid rgb(155, 150, 150);
     }
     .options {
       text-align: left;
       color: white;
       .option-list {
-        padding: 19px 20px;
+        padding: 18px 20px;
         border: 1px solid rgb(155, 150, 150);
       }
       .option-list:hover {
