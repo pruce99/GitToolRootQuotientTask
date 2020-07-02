@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.scss";
 import axios from "axios";
 
-interface Provider {
-  connected: boolean;
+ interface Provider {
   type: any;
   name: string;
   html_url: string;
@@ -159,9 +158,7 @@ const PublicRepo = () => {
   //   score: 1.0,
   // };
 
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
+
 
   return (
     <div className="PublicRepo">
