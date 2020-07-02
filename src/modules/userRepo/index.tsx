@@ -1,5 +1,5 @@
-import React, { useState} from "react";
-import "./index.scss";
+import React, { useState } from "react";
+import "../publicRepo/index.scss";
 import axios from "axios";
 
 interface Provider {
@@ -16,10 +16,11 @@ interface Provider {
   };
 }
 
-
 const UserRepo = () => {
   const [searchtext, setsearchtext] = useState("");
   const [results, setresults] = useState<Provider[]>([]);
+  const [resultstate, setresultstate] = useState(false);
+  
 
 
   const handleSubmit = async () => {
@@ -27,8 +28,8 @@ const UserRepo = () => {
     await axios
       .get(`https://api.github.com/users/${searchtext}/repos`)
       .then((response) => {
-         setresults(response.data);
-        // console.log(response.data)
+        setresults(response.data);
+        setresultstate(true)
       });
   };
 
@@ -236,8 +237,19 @@ const UserRepo = () => {
               </div>
             );
           })
+        ) : resultstate === true && searchtext.length > 0 ? (
+          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+            <h2>Nothing here matches your search </h2>
+            <h2>Please retype to find your results </h2>
+          </div>
         ) : (
-          <div>
+          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+            <h2>Search Any Specific User Here </h2>
+            <img
+              style={{ width: "250px" }}
+              src={require("../../images/mark-black.png")}
+              alt=""
+            />
           </div>
         )}
       </div>

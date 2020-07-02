@@ -1,5 +1,9 @@
-.PublicRepo {
-  left: 310px;
+.PublicRepo,
+.YourRepo,
+.OrgRepo,
+.userRepo,
+.YourRepo {
+  left: 350px;
   position: absolute;
   .searchbar {
     display: flex;
@@ -12,7 +16,7 @@
     .input-field {
       width: 88%;
       .inputBox {
-        margin-left: 3px;
+        margin-left: 10px;
         height: 20px;
         width: 100%;
         border: none;
@@ -43,6 +47,7 @@
       margin: 20px 0 0 20px;
       display: flex;
       width: 46%;
+      height: fit-content;
       .first-half {
         align-self: center;
         margin: 0 10px;

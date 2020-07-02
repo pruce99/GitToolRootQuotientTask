@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.scss";
 import axios from "axios";
 
- interface Provider {
+interface Provider {
   type: any;
   name: string;
   html_url: string;
@@ -18,6 +18,7 @@ import axios from "axios";
 
 const PublicRepo = () => {
   const [searchtext, setsearchtext] = useState("");
+  const [resultstate, setresultstate] = useState(false);
   const [results, setresults] = useState<Provider[]>([]);
 
   const handleSubmit = async () => {
@@ -26,6 +27,7 @@ const PublicRepo = () => {
       .get(`https://api.github.com/search/repositories?q=${searchtext}/`)
       .then((response) => {
         setresults(response.data.items);
+        setresultstate(true);
       });
   };
 
@@ -158,8 +160,6 @@ const PublicRepo = () => {
   //   score: 1.0,
   // };
 
-
-
   return (
     <div className="PublicRepo">
       <div className="searchbar">
@@ -235,8 +235,19 @@ const PublicRepo = () => {
               </div>
             );
           })
+        ) : resultstate === true && searchtext.length > 0 ? (
+          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+            <h2>Nothing here matches your search </h2>
+            <h2>Please retype to find your results </h2>
+          </div>
         ) : (
-          <div>
+          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+            <h2>Search Any Public Repository Here </h2>
+            <img
+              style={{ width: "350px" }}
+              src={require("../../images/Octocat.png")}
+              alt=""
+            />
           </div>
         )}
       </div>
