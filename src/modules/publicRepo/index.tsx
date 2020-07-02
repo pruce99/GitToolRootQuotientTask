@@ -241,9 +241,9 @@ const PublicRepo = () => {
             <h2>Please retype to find your results </h2>
           </div>
         ) : (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative" style={{ marginLeft: "18px", marginTop: "50px" }}>
             <h2>Search Any Public Repository Here </h2>
-            <img
+            <img className="displayimage"
               style={{ width: "350px" }}
               src={require("../../images/Octocat.png")}
               alt=""

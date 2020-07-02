@@ -3,7 +3,6 @@
 .OrgRepo,
 .userRepo,
 .YourRepo {
-  left: 350px;
   position: absolute;
   .searchbar {
     display: flex;
@@ -61,6 +60,92 @@
       }
       .second-half {
         margin-right: 10px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .PublicRepo,
+  .YourRepo,
+  .OrgRepo,
+  .userRepo,
+  .YourRepo {
+    left: 400px;
+    .card-list {
+      .card {
+        font-size: 14px;
+        width: 100%;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1040px) {
+  .PublicRepo,
+  .YourRepo,
+  .OrgRepo,
+  .userRepo,
+  .YourRepo {
+    left: 360px;
+    .card-list {
+      .card {
+        font-size: 14px;
+        width: 100%;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 940px) {
+  .PublicRepo,
+  .YourRepo,
+  .OrgRepo,
+  .userRepo,
+  .YourRepo {
+    left: 350px;
+    .card-list {
+      .card {
+        width: 90%;
+        font-size: 15px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 750px) {
+  .PublicRepo,
+  .YourRepo,
+  .OrgRepo,
+  .userRepo,
+  .YourRepo {
+    left: 0;
+    position: relative;
+    .searchbar {
+      width: 300px;
+    }
+    .card-list {
+      .card {
+        width: 90%;
+      }
+      .alternative {
+        font-size: 15px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 700px) {
+  .PublicRepo,
+  .YourRepo,
+  .OrgRepo,
+  .userRepo,
+  .YourRepo {
+    left: 0;
+    .searchbar {
+      width: 300px;
+    }
+    .card-list {
+      .card {
+        width: 80%;
+      }
+      .alternative {
+        font-size: 15px;
       }
     }
   }

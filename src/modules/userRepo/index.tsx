@@ -19,17 +19,17 @@ interface Provider {
 const UserRepo = () => {
   const [searchtext, setsearchtext] = useState("");
   const [results, setresults] = useState<Provider[]>([]);
-  const [resultstate, setresultstate] = useState(false);
-  
-
+  const [errorstate, seterrorstate] = useState(false);
 
   const handleSubmit = async () => {
-    console.log("entered");
     await axios
       .get(`https://api.github.com/users/${searchtext}/repos`)
       .then((response) => {
         setresults(response.data);
-        setresultstate(true)
+      })
+      .catch((error) => {
+        seterrorstate(true);
+        setresults([])
       });
   };
 
@@ -172,6 +172,7 @@ const UserRepo = () => {
             placeholder="Search here"
             onChange={(e) => {
               setsearchtext(e.target.value);
+              seterrorstate(false);
             }}
           />
         </div>
@@ -237,7 +238,7 @@ const UserRepo = () => {
               </div>
             );
           })
-        ) : resultstate === true && searchtext.length > 0 ? (
+        ) : errorstate === true && searchtext.length > 0 ? (
           <div style={{ marginLeft: "18px", marginTop: "50px" }}>
             <h2>Nothing here matches your search </h2>
             <h2>Please retype to find your results </h2>

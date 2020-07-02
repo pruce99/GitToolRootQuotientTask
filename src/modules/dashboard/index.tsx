@@ -12,12 +12,46 @@ const Dashboard = () => {
   const [orgRepo, setorgRepo] = useState(false);
   const [yourRepo, setyourRepo] = useState(false);
   const [yourOrg, setyourOrg] = useState(false);
+  const [displayDasboard, setdisplayDashboard] = useState(false);
 
   return (
     <div className="decider">
-      <div className="main-dashboard">
+      <div className="hide">
+        <img
+          style={
+            displayDasboard
+              ? {
+                  marginTop: "20px",
+                  marginLeft: "20px",
+                  width: "35px",
+                  cursor: "pointer",
+                }
+              : { display: "none" }
+          }
+          onClick={() => {
+            setdisplayDashboard(!displayDasboard);
+          }}
+          src={require("../../images/burger.svg")}
+          alt="bur"
+        />
+      </div>
+      <div
+        className="main-dashboard"
+        style={displayDasboard ? { display: "none" } : {}}
+      >
         <div className="dashboard-heading">
-          <h1>Dashboard</h1>
+          <div>
+            <h1>Dashboard</h1>
+          </div>
+          <div className="hide">
+            <img
+              onClick={() => {
+                setdisplayDashboard(!displayDasboard);
+              }}
+              src={require("../../images/burger.svg")}
+              alt="bur"
+            />
+          </div>
         </div>
         <div className="options">
           <div
@@ -28,6 +62,7 @@ const Dashboard = () => {
               setorgRepo(false);
               setyourRepo(false);
               setyourOrg(false);
+              setdisplayDashboard(true);
             }}
           >
             <h3>Search Public Repositories</h3>
@@ -39,6 +74,7 @@ const Dashboard = () => {
               setorgRepo(false);
               setyourRepo(false);
               setyourOrg(false);
+              setdisplayDashboard(true);
             }}
             className="option-list"
           >
@@ -51,6 +87,7 @@ const Dashboard = () => {
               setuserRepo(false);
               setyourRepo(false);
               setyourOrg(false);
+              setdisplayDashboard(true);
             }}
             className="option-list"
           >
@@ -63,6 +100,7 @@ const Dashboard = () => {
               setuserRepo(false);
               setyourRepo(true);
               setyourOrg(false);
+              setdisplayDashboard(true);
             }}
             className="option-list"
           >
@@ -75,6 +113,7 @@ const Dashboard = () => {
               setuserRepo(false);
               setyourRepo(false);
               setyourOrg(true);
+              setdisplayDashboard(true);
             }}
             className="option-list"
           >
