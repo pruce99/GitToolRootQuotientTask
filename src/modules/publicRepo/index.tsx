@@ -18,8 +18,8 @@ interface Provider {
 
 const PublicRepo = () => {
   const [searchtext, setsearchtext] = useState("");
-  const [resultstate, setresultstate] = useState(false);
   const [results, setresults] = useState<Provider[]>([]);
+  const [errorstate, seterrorstate] = useState(false);
 
   const handleSubmit = async () => {
     console.log("entered");
@@ -27,7 +27,10 @@ const PublicRepo = () => {
       .get(`https://api.github.com/search/repositories?q=${searchtext}/`)
       .then((response) => {
         setresults(response.data.items);
-        setresultstate(true);
+      })
+      .catch((error) => {
+        seterrorstate(true);
+        setresults([]);
       });
   };
 
@@ -170,6 +173,7 @@ const PublicRepo = () => {
             placeholder="Search here"
             onChange={(e) => {
               setsearchtext(e.target.value);
+              seterrorstate(false);
             }}
           />
         </div>
@@ -235,16 +239,16 @@ const PublicRepo = () => {
               </div>
             );
           })
-        ) : resultstate === true && searchtext.length > 0 ? (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+        ) : errorstate === true && searchtext.length > 0 ? (
+          <div className="alternative">
             <h2>Nothing here matches your search </h2>
             <h2>Please retype to find your results </h2>
           </div>
         ) : (
-          <div className="alternative" style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative">
             <h2>Search Any Public Repository Here </h2>
-            <img className="displayimage"
-              style={{ width: "350px" }}
+            <img
+              className="displayimage"
               src={require("../../images/Octocat.png")}
               alt=""
             />

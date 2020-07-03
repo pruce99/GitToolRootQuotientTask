@@ -63,7 +63,7 @@
     .main-dashboard {
       font-size: 15px;
       width: 100%;
-      position: relative;
+      position: fixed;
       .dashboard-heading {
         .hide {
           img {
@@ -71,6 +71,19 @@
             width: 35px;
             margin: 20px;
             cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 550px) {
+  .decider {
+    .main-dashboard {
+      .options {
+        .option-list {
+          h3 {
+            margin: 26px 20px;
           }
         }
       }

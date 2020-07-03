@@ -1,24 +1,25 @@
-import React,{useState} from 'react'
-import '../publicRepo/index.scss'
-import axios from 'axios'
+import React, { useState } from "react";
+import "../publicRepo/index.scss";
+import axios from "axios";
 
 interface Provider {
-    type: any;
-    name: string;
+  type: any;
+  name: string;
+  html_url: string;
+  language: string;
+  private: boolean;
+  node_id: number;
+  owner: {
+    avatar_url: string;
     html_url: string;
-    language: string;
-    private: boolean;
-    node_id: number;
-    owner: {
-      avatar_url: string;
-      html_url: string;
-      login: string;
-    };
-  }
- 
+    login: string;
+  };
+}
+
 const OrgRepo = () => {
-    const [searchtext, setsearchtext] = useState("");
+  const [searchtext, setsearchtext] = useState("");
   const [results, setresults] = useState<Provider[]>([]);
+  const [errorstate, seterrorstate] = useState(false);
 
   const handleSubmit = async () => {
     console.log("entered");
@@ -27,10 +28,14 @@ const OrgRepo = () => {
       .then((response) => {
         setresults(response.data);
         setsearchtext("");
+      })
+      .catch((error) => {
+        seterrorstate(true);
+        setresults([]);
       });
   };
-    return ( 
-        <div className="OrgRepo">
+  return (
+    <div className="OrgRepo">
       <div className="searchbar">
         <div className="input-field">
           <input
@@ -39,6 +44,7 @@ const OrgRepo = () => {
             placeholder="Search here"
             onChange={(e) => {
               setsearchtext(e.target.value);
+              seterrorstate(false);
             }}
           />
         </div>
@@ -104,19 +110,25 @@ const OrgRepo = () => {
               </div>
             );
           })
+        ) : errorstate === true && searchtext.length > 0 ? (
+          <div className="alternative">
+            <h2>Nothing here matches your search </h2>
+            <h2>Please retype to find your results </h2>
+          </div>
         ) : (
-            <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative">
             <h2>Search Any Public Organisation Repository Here </h2>
             <img
+              className="displayimage"
               style={{ width: "180px" }}
               src={require("../../images/organization.svg")}
               alt=""
             />
-            </div>
+          </div>
         )}
       </div>
     </div>
-     );
-}
- 
+  );
+};
+
 export default OrgRepo;

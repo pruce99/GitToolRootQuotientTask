@@ -158,16 +158,16 @@ const YourRepo = () => {
             );
           })
         ) : errorstate === true && searchtext.length > 0 ? (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative-token">
             <h2>Invalid Token </h2>
             <h2>Visit this link to generate your token </h2>
           </div>
         ) : (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative-token">
             <h2>Enter Your Token To View Your</h2>
             <h2>Public And Private Repository</h2>
             <img
-              style={{ width: "180px" }}
+              className="displayimage-token"
               src={require("../../images/token-boy.png")}
               alt=""
             />

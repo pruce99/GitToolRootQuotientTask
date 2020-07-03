@@ -66,7 +66,7 @@ const YourOrg = () => {
             className="inputBox"
             type="text"
             style={{ marginTop: "6px" }}
-            placeholder="Enter Your Organisation name"
+            placeholder="Enter Your Organisation"
             onChange={(e) => {
               setorgText(e.target.value);
               seterrorstate(false);
@@ -173,16 +173,16 @@ const YourOrg = () => {
             );
           })
         ) : errorstate === true && tokentext.length > 0 ? (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative-org-token">
             <h2>Invalid Token </h2>
             <h2>Visit this link to generate your token </h2>
           </div>
         ) : (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative-org-token">
             <h2>Enter Your Username And Token</h2>
             <h2>To View Your Organisation's Public And Private Repository</h2>
             <img
-              style={{ width: "200px" }}
+              className="displayimage-org-token"
               src={require("../../images/worker.png")}
               alt=""
             />

@@ -29,7 +29,7 @@ const UserRepo = () => {
       })
       .catch((error) => {
         seterrorstate(true);
-        setresults([])
+        setresults([]);
       });
   };
 
@@ -239,15 +239,15 @@ const UserRepo = () => {
             );
           })
         ) : errorstate === true && searchtext.length > 0 ? (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative">
             <h2>Nothing here matches your search </h2>
             <h2>Please retype to find your results </h2>
           </div>
         ) : (
-          <div style={{ marginLeft: "18px", marginTop: "50px" }}>
+          <div className="alternative">
             <h2>Search Any Specific User Here </h2>
             <img
-              style={{ width: "250px" }}
+              className="displayimage"
               src={require("../../images/mark-black.png")}
               alt=""
             />
