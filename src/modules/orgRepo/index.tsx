@@ -37,7 +37,7 @@ const OrgRepo = () => {
         setresults([]);
       });
   };
-  
+
   useEffect(() => {
     console.log(results.length);
     let data = [];
@@ -72,16 +72,19 @@ const OrgRepo = () => {
         </div>
       </div>
       {filter.length > 1 ? (
-        <select
-          defaultValue={"All"}
-          onChange={(e) => setlang(e.target.value)}
-          id="languages"
-          name="languages"
-        >
-          {filter.map((lang) => {
-            return <option value={lang}>{lang}</option>;
-          })}
-        </select>
+        <div>
+          <h3>Language:</h3>
+          <select
+            defaultValue={"All"}
+            onChange={(e) => setlang(e.target.value)}
+            id="languages"
+            name="languages"
+          >
+            {filter.map((lang) => {
+              return <option value={lang}>{lang}</option>;
+            })}
+          </select>
+        </div>
       ) : (
         <div></div>
       )}

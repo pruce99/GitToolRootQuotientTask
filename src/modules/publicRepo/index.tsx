@@ -39,8 +39,8 @@ const PublicRepo = () => {
   };
 
   useEffect(() => {
-    console.log(results.length)
-    seterrorstate(false)
+    console.log(results.length);
+    seterrorstate(false);
     let data = [];
     data[0] = "All";
     for (let i = 1; i < results.length; i++) {
@@ -60,7 +60,7 @@ const PublicRepo = () => {
             placeholder="Search here"
             onChange={(e) => {
               setsearchtext(e.target.value);
-              seterrorstate(true)
+              seterrorstate(true);
             }}
           />
         </div>
@@ -73,16 +73,19 @@ const PublicRepo = () => {
         </div>
       </div>
       {filter.length > 1 ? (
-        <select
-          defaultValue={"All"}
-          onChange={(e) => setlang(e.target.value)}
-          id="languages"
-          name="languages"
-        >
-          {filter.map((lang) => {
-            return <option value={lang}>{lang}</option>;
-          })}
-        </select>
+        <div>
+          <h3>Language:</h3>
+          <select
+            defaultValue={"All"}
+            onChange={(e) => setlang(e.target.value)}
+            id="languages"
+            name="languages"
+          >
+            {filter.map((lang) => {
+              return <option value={lang}>{lang}</option>;
+            })}
+          </select>
+        </div>
       ) : (
         <div></div>
       )}
@@ -119,7 +122,9 @@ const PublicRepo = () => {
               );
             }
           })
-        ) : errorstate === false && results.length === 0 && searchtext.length > 0 ? (
+        ) : errorstate === false &&
+          results.length === 0 &&
+          searchtext.length > 0 ? (
           <div className="alternative">
             <h2>Nothing here matches your search </h2>
             <h2>Please retype to find your results </h2>

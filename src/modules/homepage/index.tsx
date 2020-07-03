@@ -21,7 +21,7 @@ const Homepage = () => {
             Search Public Repositories
           </li>
           <li>
-            Search GitHub Users
+            Search Users Repositories
           </li>
           <li>
             Search Organizations
