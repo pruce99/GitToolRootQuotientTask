@@ -101,7 +101,7 @@ const YourRepo = () => {
           />
         </div>
       </div>
-      {filter.length > 1 || pubpri.length>1 ? (
+      {filter.length > 1 || pubpri.length > 1 ? (
         <div style={{ display: "inline-flex" }}>
           <div>
             <span style={{ marginRight: "10px" }}>
@@ -449,7 +449,13 @@ const YourRepo = () => {
         ) : errorstate === true && searchtext.length > 0 ? (
           <div className="alternative-token">
             <h2>Invalid Token </h2>
-            <h2>Visit this link to generate your token </h2>
+            <a
+              // eslint-disable-next-line react/jsx-no-target-blank
+              target="_blank"
+              href="https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token"
+            >
+              <h2>Visit this link to generate your token </h2>
+            </a>
           </div>
         ) : (
           <div className="alternative-token">
