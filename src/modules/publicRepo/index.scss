@@ -38,6 +38,7 @@
   .card-list {
     display: flex;
     flex-wrap: wrap;
+    min-width: 723px;
 
     .card {
       border: 1px solid rgb(143, 140, 140);
@@ -94,7 +95,7 @@
     .card-list {
       .card {
         font-size: 14px;
-        width: 100%;
+        width: 46%;
       }
     }
   }
@@ -139,6 +140,7 @@
       width: 300px;
     }
     .card-list {
+    min-width: 0px;
       .card {
         width: 90%;
       }

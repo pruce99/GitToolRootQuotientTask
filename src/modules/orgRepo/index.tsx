@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../publicRepo/index.scss";
 import axios from "axios";
+import Card from "../card";
 
 interface Provider {
   type: any;
@@ -20,6 +21,8 @@ const OrgRepo = () => {
   const [searchtext, setsearchtext] = useState("");
   const [results, setresults] = useState<Provider[]>([]);
   const [errorstate, seterrorstate] = useState(false);
+  const [filter, setfilter] = useState<string[]>([]);
+  const [lang, setlang] = useState("All");
 
   const handleSubmit = async () => {
     console.log("entered");
@@ -34,6 +37,18 @@ const OrgRepo = () => {
         setresults([]);
       });
   };
+  
+  useEffect(() => {
+    console.log(results.length);
+    let data = [];
+    data[0] = "All";
+    for (let i = 1; i < results.length; i++) {
+      if (results[i].language !== null) data[i] = results[i].language;
+    }
+    const uniquedata = data.filter((x, i, a) => a.indexOf(x) === i);
+    setfilter(uniquedata);
+  }, [results]);
+
   return (
     <div className="OrgRepo">
       <div className="searchbar">
@@ -56,59 +71,52 @@ const OrgRepo = () => {
           />
         </div>
       </div>
+      {filter.length > 1 ? (
+        <select
+          defaultValue={"All"}
+          onChange={(e) => setlang(e.target.value)}
+          id="languages"
+          name="languages"
+        >
+          {filter.map((lang) => {
+            return <option value={lang}>{lang}</option>;
+          })}
+        </select>
+      ) : (
+        <div></div>
+      )}
       <div className="card-list">
         {results.length > 0 ? (
+          // eslint-disable-next-line array-callback-return
           results.map((roughdata) => {
-            return (
-              <div key={roughdata.node_id} className="card">
-                <div className="first-half">
-                  <div className="avatar">
-                    <img
-                      className="avatar-img"
-                      src={roughdata.owner.avatar_url}
-                      alt="avatar"
-                    />
-                  </div>
-                </div>
-                <div className="second-half">
-                  <div className="name">
-                    <h4>Name:{roughdata.name}</h4>
-                  </div>
-                  <div className="link">
-                    <a
-                      style={{ textDecoration: "none", color: "black" }}
-                      // eslint-disable-next-line react/jsx-no-target-blank
-                      target="_blank"
-                      rel="noreferrer"
-                      href={roughdata.html_url}
-                    >
-                      <h4>Repository Link</h4>
-                    </a>
-                  </div>
-                  <div className="owner">
-                    <a
-                      style={{ textDecoration: "none", color: "black" }}
-                      // eslint-disable-next-line react/jsx-no-target-blank
-                      target="_blank"
-                      rel="noreferrer"
-                      href={roughdata.owner.html_url}
-                    >
-                      <h4>Owner:{roughdata.owner.login}</h4>
-                    </a>
-                  </div>
-
-                  <div className="language">
-                    <h4>
-                      Language:
-                      {roughdata.language}
-                    </h4>
-                  </div>
-                  <div className="private">
-                    <h4>{roughdata.private ? "Private" : "Public"}</h4>
-                  </div>
-                </div>
-              </div>
-            );
+            if (lang === "All") {
+              return (
+                <Card
+                  node_id={roughdata.node_id}
+                  avatar_url={roughdata.owner.avatar_url}
+                  name={roughdata.name}
+                  html_url={roughdata.html_url}
+                  h_url={roughdata.owner.html_url}
+                  owner={roughdata.owner.login}
+                  language={roughdata.language}
+                  privates={roughdata.private}
+                />
+              );
+            }
+            if (lang === roughdata.language) {
+              return (
+                <Card
+                  node_id={roughdata.node_id}
+                  avatar_url={roughdata.owner.avatar_url}
+                  name={roughdata.name}
+                  html_url={roughdata.html_url}
+                  h_url={roughdata.owner.html_url}
+                  owner={roughdata.owner.login}
+                  language={roughdata.language}
+                  privates={roughdata.private}
+                />
+              );
+            }
           })
         ) : errorstate === true && searchtext.length > 0 ? (
           <div className="alternative">

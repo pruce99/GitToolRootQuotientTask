@@ -5,8 +5,10 @@ import UserRepo from "../userRepo";
 import OrgRepo from "../orgRepo";
 import YourRepo from "../yourRepo";
 import YourOrg from "../yourOrg";
+import Homepage from "../homepage";
 
 const Dashboard = () => {
+  const [homepage, setHomepage] = useState(true);
   const [publicRepo, setpublicRepo] = useState(false);
   const [userRepo, setuserRepo] = useState(false);
   const [orgRepo, setorgRepo] = useState(false);
@@ -40,7 +42,17 @@ const Dashboard = () => {
         style={displayDasboard ? { display: "none" } : {}}
       >
         <div className="dashboard-heading">
-          <div>
+          <div
+            onClick={() => {
+              setHomepage(true);
+              setpublicRepo(false);
+              setuserRepo(false);
+              setorgRepo(false);
+              setyourRepo(false);
+              setyourOrg(false);
+              setdisplayDashboard(true);
+            }}
+          >
             <h1>Dashboard</h1>
           </div>
           <div className="hide">
@@ -57,6 +69,7 @@ const Dashboard = () => {
           <div
             className="option-list"
             onClick={() => {
+              setHomepage(false);
               setpublicRepo(true);
               setuserRepo(false);
               setorgRepo(false);
@@ -71,6 +84,7 @@ const Dashboard = () => {
             onClick={() => {
               setpublicRepo(false);
               setuserRepo(true);
+              setHomepage(false);
               setorgRepo(false);
               setyourRepo(false);
               setyourOrg(false);
@@ -84,6 +98,7 @@ const Dashboard = () => {
             onClick={() => {
               setpublicRepo(false);
               setorgRepo(true);
+              setHomepage(false);
               setuserRepo(false);
               setyourRepo(false);
               setyourOrg(false);
@@ -98,6 +113,7 @@ const Dashboard = () => {
               setpublicRepo(false);
               setorgRepo(false);
               setuserRepo(false);
+              setHomepage(false);
               setyourRepo(true);
               setyourOrg(false);
               setdisplayDashboard(true);
@@ -111,6 +127,7 @@ const Dashboard = () => {
               setpublicRepo(false);
               setorgRepo(false);
               setuserRepo(false);
+              setHomepage(false);
               setyourRepo(false);
               setyourOrg(true);
               setdisplayDashboard(true);
@@ -127,6 +144,7 @@ const Dashboard = () => {
         {orgRepo ? <OrgRepo /> : <div></div>}
         {yourRepo ? <YourRepo /> : <div></div>}
         {yourOrg ? <YourOrg /> : <div></div>}
+        {homepage ? <Homepage /> : <div></div>}
       </div>
     </div>
   );

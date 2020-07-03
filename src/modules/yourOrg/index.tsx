@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../publicRepo/index.scss";
 
@@ -28,6 +28,8 @@ const YourOrg = () => {
   const [errorstate, seterrorstate] = useState(false);
   const [results, setresults] = useState<Provider[]>([]);
   const [branch, setbranch] = useState<Ibranch[]>([]);
+  const [filter, setfilter] = useState<string[]>([]);
+  const [lang, setlang] = useState("All");
 
   const handleSubmit = async () => {
     seterrorstate(false);
@@ -42,6 +44,7 @@ const YourOrg = () => {
       })
       .catch((error) => {
         seterrorstate(true);
+        setresults([]);
       });
   };
 
@@ -57,6 +60,17 @@ const YourOrg = () => {
         setbranch(response.data);
       });
   };
+
+  useEffect(() => {
+    console.log(results.length);
+    let data = [];
+    data[0] = "All";
+    for (let i = 1; i < results.length; i++) {
+      if (results[i].language !== null) data[i] = results[i].language;
+    }
+    const uniquedata = data.filter((x, i, a) => a.indexOf(x) === i);
+    setfilter(uniquedata);
+  }, [results]);
 
   return (
     <div className="YourRepo">
@@ -94,83 +108,176 @@ const YourOrg = () => {
           />
         </div>
       </div>
+      {filter.length > 1 ? (
+        <select
+          defaultValue={"All"}
+          onChange={(e) => setlang(e.target.value)}
+          id="languages"
+          name="languages"
+        >
+          {filter.map((lang) => {
+            return <option value={lang}>{lang}</option>;
+          })}
+        </select>
+      ) : (
+        <div></div>
+      )}
       <div className="card-list">
         {results.length > 0 ? (
+          // eslint-disable-next-line array-callback-return
           results.map((roughdata) => {
-            return (
-              <div key={roughdata.node_id} className="card">
-                <div className="first-half">
-                  <div className="avatar">
-                    <img
-                      className="avatar-img"
-                      src={roughdata.owner.avatar_url}
-                      alt="avatar"
-                    />
+            if (lang === "All") {
+              return (
+                <div key={roughdata.node_id} className="card">
+                  <div className="first-half">
+                    <div className="avatar">
+                      <img
+                        className="avatar-img"
+                        src={roughdata.owner.avatar_url}
+                        alt="avatar"
+                      />
+                    </div>
+                  </div>
+                  <div className="second-half">
+                    <div className="name">
+                      <h4>Name:{roughdata.name}</h4>
+                    </div>
+                    <div className="link">
+                      <a
+                        style={{ textDecoration: "none", color: "black" }}
+                        // eslint-disable-next-line react/jsx-no-target-blank
+                        target="_blank"
+                        rel="noreferrer"
+                        href={roughdata.html_url}
+                      >
+                        <h4>Repository Link</h4>
+                      </a>
+                    </div>
+                    <div className="owner">
+                      <a
+                        style={{ textDecoration: "none", color: "black" }}
+                        // eslint-disable-next-line react/jsx-no-target-blank
+                        target="_blank"
+                        rel="noreferrer"
+                        href={roughdata.owner.html_url}
+                      >
+                        <h4>Owner:{roughdata.owner.login}</h4>
+                      </a>
+                    </div>
+                    <div
+                      style={{ cursor: "pointer" }}
+                      className="branches"
+                      onClick={() => {
+                        handleBranch(roughdata.name, roughdata.owner.login);
+                        setbranchtoggle(!branchtoggle);
+                      }}
+                    >
+                      <h4>
+                        Branch:
+                        {roughdata.default_branch}
+                      </h4>
+                      {branch.length > 0 &&
+                      reposname === roughdata.name &&
+                      branchtoggle === true ? (
+                        <div>
+                          <h3>{branch.length} branch</h3>
+                          {branch.map((br) => {
+                            return <li>{br.name}</li>;
+                          })}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </div>
+                    <div className="language">
+                      <h4>
+                        Language:
+                        {roughdata.language}
+                      </h4>
+                    </div>
+                    <div className="private">
+                      <h4>{roughdata.private ? "Private" : "Public"}</h4>
+                    </div>
                   </div>
                 </div>
-                <div className="second-half">
-                  <div className="name">
-                    <h4>Name:{roughdata.name}</h4>
+              );
+            }
+            if (lang === roughdata.language) {
+              return (
+                <div key={roughdata.node_id} className="card">
+                  <div className="first-half">
+                    <div className="avatar">
+                      <img
+                        className="avatar-img"
+                        src={roughdata.owner.avatar_url}
+                        alt="avatar"
+                      />
+                    </div>
                   </div>
-                  <div className="link">
-                    <a
-                      style={{ textDecoration: "none", color: "black" }}
-                      // eslint-disable-next-line react/jsx-no-target-blank
-                      target="_blank"
-                      rel="noreferrer"
-                      href={roughdata.html_url}
+                  <div className="second-half">
+                    <div className="name">
+                      <h4>Name:{roughdata.name}</h4>
+                    </div>
+                    <div className="link">
+                      <a
+                        style={{ textDecoration: "none", color: "black" }}
+                        // eslint-disable-next-line react/jsx-no-target-blank
+                        target="_blank"
+                        rel="noreferrer"
+                        href={roughdata.html_url}
+                      >
+                        <h4>Repository Link</h4>
+                      </a>
+                    </div>
+                    <div className="owner">
+                      <a
+                        style={{ textDecoration: "none", color: "black" }}
+                        // eslint-disable-next-line react/jsx-no-target-blank
+                        target="_blank"
+                        rel="noreferrer"
+                        href={roughdata.owner.html_url}
+                      >
+                        <h4>Owner:{roughdata.owner.login}</h4>
+                      </a>
+                    </div>
+                    <div
+                      style={{ cursor: "pointer" }}
+                      className="branches"
+                      onClick={() => {
+                        handleBranch(roughdata.name, roughdata.owner.login);
+                        setbranchtoggle(!branchtoggle);
+                      }}
                     >
-                      <h4>Repository Link</h4>
-                    </a>
-                  </div>
-                  <div className="owner">
-                    <a
-                      style={{ textDecoration: "none", color: "black" }}
-                      // eslint-disable-next-line react/jsx-no-target-blank
-                      target="_blank"
-                      rel="noreferrer"
-                      href={roughdata.owner.html_url}
-                    >
-                      <h4>Owner:{roughdata.owner.login}</h4>
-                    </a>
-                  </div>
-                  <div
-                    style={{ cursor: "pointer" }}
-                    className="branches"
-                    onClick={() => {
-                      handleBranch(roughdata.name, roughdata.owner.login);
-                      setbranchtoggle(!branchtoggle);
-                    }}
-                  >
-                    <h4>
-                      Branch:
-                      {roughdata.default_branch}
-                    </h4>
-                    {branch.length > 0 &&
-                    reposname === roughdata.name &&
-                    branchtoggle === true ? (
-                      <div>
-                        <h3>{branch.length} branch</h3>
-                        {branch.map((br) => {
-                          return <li>{br.name}</li>;
-                        })}
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
-                  <div className="language">
-                    <h4>
-                      Language:
-                      {roughdata.language}
-                    </h4>
-                  </div>
-                  <div className="private">
-                    <h4>{roughdata.private ? "Private" : "Public"}</h4>
+                      <h4>
+                        Branch:
+                        {roughdata.default_branch}
+                      </h4>
+                      {branch.length > 0 &&
+                      reposname === roughdata.name &&
+                      branchtoggle === true ? (
+                        <div>
+                          <h3>{branch.length} branch</h3>
+                          {branch.map((br) => {
+                            return <li>{br.name}</li>;
+                          })}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </div>
+                    <div className="language">
+                      <h4>
+                        Language:
+                        {roughdata.language}
+                      </h4>
+                    </div>
+                    <div className="private">
+                      <h4>{roughdata.private ? "Private" : "Public"}</h4>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
+              );
+            }
           })
         ) : errorstate === true && tokentext.length > 0 ? (
           <div className="alternative-org-token">
